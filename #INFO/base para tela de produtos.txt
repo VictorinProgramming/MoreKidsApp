@@ -1,0 +1,59 @@
+-->Adicionando itens ao estoque
+
+UPDATE estoque SET qnt_estoque = qnt_estoque + ? WHERE id=?
+
+--> No Java ficaria assim
+
+	private void adicionar(){
+		String sql = "update tb_pdt set QTD_PDT = QTD_PDT +? where id=?";
+	// onde for "txt_Nome_Cliente" - usar o campo de texto designado para a alteração da quantidade a ser adicionada;
+	try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txt_Nome_Cliente.getText());
+
+	if ((txt_Nome_Cliente.getText().isEmpty())){
+		JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
+	}
+	else {
+        //A linha abaixo atualiza a tabela usuario com os dados do formulário;
+		int adicionado = pst.executeUpdate();
+		if (adicionado > 0) {
+			JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
+                    	txt_Nome_Cliente.setText(null);
+         }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+--> Removendo item do estoque;
+
+UPDATE estoque SET qnt_estoque = qnt_estoque - ? WHERE id=?
+
+--> No Java ficaria assim 
+
+	int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja modificar a quantidade em estoque?", "Atenção", JOptionPane.YES_NO_OPTION);
+
+        if (confirma == JOptionPane.YES_OPTION) {
+            String sql = "update tb_pdt set QTD_PDT = QTD_PDT -? where id=?";
+            try {
+                pst = conexao.prepareStatement(sql);
+                pst.setString(1, txt_Id_Usuario.getText());
+                int apagado = pst.executeUpdate();
+                if (apagado > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuário deletado com Sucesso!");
+                    txt_Id_Usuario.setText(null);
+		
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+
+        try {
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+

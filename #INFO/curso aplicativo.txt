@@ -1,0 +1,17 @@
+//Aplicativo em Java para a More Kid's
+
+--> Link da video Aula(Acesse a Playlist)
+
+https://www.youtube.com/watch?v=rB66EC0VXTA&list=PLbEOwbQR9lqxsTusvu8wfkUECrmcV81MU&index=2
+
+--> Materiais necessáarios para criar a aplicação
+
+<!-- InelliJ -->
+https://www.jetbrains.com/idea/download/?section=windows
+
+<!-- Java SDK -->
+https://www.oracle.com/br/java/technologies/downloads/
+
+<!-- MySQL -->
+https://www.mysql.com/downloads/
+

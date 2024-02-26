@@ -1,0 +1,18 @@
+--> Fazendo a area de vendas
+
+Pensando em como montar uma tabela de vendas.
+
+Em uma venda será adicionado uma nota onde contará como venda os seguintes dados 
+
+- Nome Produto
+- Tipo Produto
+- Quantidade Produto
+- Tamanho Produto
+- Vendedor
+- Valor
+- Cliente
+
+As coisas que será removida do Estoque
+
+- Quantidade Produto
+

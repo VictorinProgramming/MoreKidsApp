@@ -1,0 +1,32 @@
+
+public class OperacoesBD {
+    public static void obterVendasEstoque() {
+        String sql = "SELECT v.ID_Venda, v.Nome_Produto, v.Quantidade_Produto, e.Quantidade_Disponivel " +
+                     "FROM tb_Vendas v " +
+                     "JOIN tb_Vendas_Estoque ve ON v.ID_Venda = ve.ID_Venda " +
+                     "JOIN tb_Estoque e ON ve.ID_Estoque = e.ID_Estoque";
+
+        try (Connection conexao = ConexaoBD.obterConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql);
+             ResultSet resultado = stmt.executeQuery()) {
+
+            while (resultado.next()) {
+                int idVenda = resultado.getInt("ID_Venda");
+                String nomeProduto = resultado.getString("Nome_Produto");
+                int quantidadeVendida = resultado.getInt("Quantidade_Produto");
+                int quantidadeDisponivel = resultado.getInt("Quantidade_Disponivel");
+
+                System.out.println("ID Venda: " + idVenda +
+                                   ", Produto: " + nomeProduto +
+                                   ", Quantidade Vendida: " + quantidadeVendida +
+                                   ", Quantidade Disponível: " + quantidadeDisponivel);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        obterVendasEstoque();
+    }
+}

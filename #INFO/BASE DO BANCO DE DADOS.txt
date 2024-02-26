@@ -1,0 +1,148 @@
+// CRIANDO BANCO DE DADOS MORE KIDS
+
+/*Comando para descrever a Tabela*/
+DESCRIBE tb_ADM 
+
+/*Comando para exibir dados da tabela*/
+SELECT * FROM administrador
+
+
+/* Aos criar o Banco de Dados */
+
+CREATE DATABASE usermorekids;
+
+USE usermorekids;
+
+--> Criando tabelas
+--USERS:
+CREATE TABLE IF NOT EXISTS tb_ADM (
+	ID_ADM INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    	Nome VARCHAR (50) NOT NULL,
+    	Email VARCHAR (50) NOT NULL UNIQUE,
+    	Senha VARCHAR (15) NOT NULL,
+    	Genero VARCHAR(9) NOT NULL,
+    	CPF VARCHAR(11) NOT NULL
+);
+
+--CLIENT:
+CREATE TABLE IF NOT EXISTS tb_CTS(
+	ID_CTS INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+   	Nome VARCHAR (50) NOT NULL UNIQUE,
+   	Fone VARCHAR(12) NOT NULL,
+  	Genero VARCHAR(9) NOT NULL,
+    	CPF VARCHAR(11) NOT NULL UNIQUE
+);
+
+--PRODUCT
+CREATE TABLE IF NOT EXISTS tb_PDT(
+	ID_PDT INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    	TP_PDT VARCHAR (50) NOT NULL,
+    	NM_PDT VARCHAR (50) NOT NULL,
+    	TAMANHO INT NOT NULL,
+    	Genero VARCHAR(9) NOT NULL,
+    	Valor DECIMAL(10,2) NOT NULL
+);
+
+--NMR_VND
+CREATE TABLE NMR_VND (
+	ORD_VDN INT PRIMARY KEY AUTO_INCREMENT,
+    	DT_VDN TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    	M_PDT VARCHAR (150) NOT NULL,
+    	TP_PDT VARCHAR (50) NOT NULL,
+    	TAMANHO INT NOT NULL,
+    	VDD VARCHAR (50) NOT NULL,
+    	VLR DECIMAL (10,2) DEFAULT 0.00 NOT NULL,
+    	ID_CTS INT NOT NULL,
+    	ID_PDT INT NOT NULL,
+    	FOREIGN KEY (ID_CTS) REFERENCES tb_CTS(ID_CTS),
+	CONSTRAINT fk_NM_PDT FOREIGN KEY (ID_PDT) REFERENCES tb_PDT(ID_PDT)
+);
+
+--> Fazendo INSERT de tb_ADM
+--USERS:
+INSERT INTO tb_ADM (ID_ADM, Nome, Email, Senha, Genero, CPF)
+VALUE(1,'Victor Hugo Lino de Souza Estevão','victormorekids@gmail.com','Anaelisa-2019','masculino','70381145140');
+
+INSERT INTO tb_ADM (ID_ADM, Nome, Email, Senha, Genero, CPF)
+VALUE(2, 'Suporte More Kids','Suporte Morekids','usemorekids','Undefined' , '99999999999');
+
+
+--CLIENTS:
+INSERT INTO tb_CTS (ID_CTS, Nome, Fone, Genero, CPF)
+VALUE(1,'Victor Hugo Lino de Souza Estevão','61999156232','masculino','70381145140');
+
+--PRODUTO:
+INSERT INTO tb_pdt (TP_PDT, NM_PDT,TAMANHO,Genero,Valor)
+VALUES('CAMISETA GOLA O', 'CAAMISTA GOLA O LISA', 16, 'masculino', 30.00);
+
+--NUMERO DA VENDA
+INSERT INTO NMR_VND (NM_PDT, TP_PDT, TAMANHO, VDD, ID_CTS, ID_PDT)
+VALUES ('CAMISETA GOLA O LISA', 'CAMISETA GOLA O', 16, 'Suporte Morekids', 1, 1);
+
+
+--> O Código abaixo traz informações de duas tabelas;
+--
+SELECT 
+O.ORD_VDN,NM_PDT,TP_PDT,TAMANHO,VLR,
+C.Nome,Fone
+FROM nmr_vnd as O
+INNER JOIN tb_cts as C
+ON (O.ID_CTS = C.ID_CTS);
+
+
+
+
+
+
+
+--Anotações:
+ADM - Administrador
+CTS - Clientes
+PDt - Produto
+NMR_VND - Numero da Venda
+ORD_VDN - Ordem da venda
+DT_VDN - Data da Venda
+NM_PDT - Nome do Produto
+TP_PDT - Tipo do Produto
+VDD - Vendedor
+VLR - Valor
+
+
+
+-- Informações do Banco de Dados:
+Tipo de Banco:
+MySQL Oracle
+
+Caminho:
+//127.0.0.1:3306
+ou
+//localhost:3306
+
+Nome:
+morekidsapp
+
+Autenticação:
+user= "root"
+password = "@novaSenha2"
+
+
+--Alterações:
+
+UPDATE usermorekids.tb_pdt
+SET NM_PDT = 'CAMISETA GOLA O LISA'
+WHERE ID_PDT = 1;
+
+UPDATE usermorekids.nmr_vnd
+SET VLR = 30.00
+WHERE ORD_VND = 1;
+
+describe tb_adm;
+
+alter table tb_adm add column perfil varchar(20) not null;
+
+select* from tb_adm;
+alter table tb_adm add column Login varchar(20) not null;
+
+UPDATE usermorekids.tb_adm
+SET Login = 'MoreKids'
+WHERE ID_ADM = 2;

@@ -1,0 +1,74 @@
+CREATE DATABASE usermorekids;
+
+USE usermorekids;
+
+-- administrador
+CREATE TABLE IF NOT EXISTS tb_ADM (
+	ID_ADM INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	Nome VARCHAR (50) NOT NULL,
+	Email VARCHAR (50) NOT NULL UNIQUE,
+	Senha VARCHAR (15) NOT NULL,
+	Genero VARCHAR(9) NOT NULL,
+	CPF VARCHAR(11) NOT NULL
+);
+
+-- clientes
+CREATE TABLE IF NOT EXISTS tb_CTS(
+	ID_CTS INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+   	Nome VARCHAR (50) NOT NULL UNIQUE,
+   	Fone VARCHAR(12) NOT NULL,
+  	Genero VARCHAR(9) NOT NULL,
+	CPF VARCHAR(11) NOT NULL UNIQUE
+);
+
+-- produto
+CREATE TABLE IF NOT EXISTS tb_PDT(
+	ID_PDT INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	TP_PDT VARCHAR (50) NOT NULL,
+	NM_PDT VARCHAR (50) NOT NULL,
+	TAMANHO INT NOT NULL,
+	Genero VARCHAR(9) NOT NULL,
+	Valor DECIMAL(10,2) NOT NULL
+);
+
+-- numero de venda
+CREATE TABLE NMR_VND (
+	ORD_VDN INT PRIMARY KEY AUTO_INCREMENT,
+	DT_VDN TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	NM_PDT VARCHAR (150) NOT NULL,
+	TP_PDT VARCHAR (50) NOT NULL,
+	TAMANHO INT NOT NULL,
+	VDD VARCHAR (50) NOT NULL,
+	VLR DECIMAL (10,2) DEFAULT 0.00 NOT NULL,
+	ID_CTS INT NOT NULL,
+	ID_PDT INT NOT NULL,
+	FOREIGN KEY (ID_CTS) REFERENCES tb_CTS(ID_CTS),
+	CONSTRAINT fk_NM_PDT FOREIGN KEY (ID_PDT) REFERENCES tb_PDT(ID_PDT)
+);
+
+-- dados de administrador
+INSERT INTO tb_ADM (ID_ADM, Nome, Email, Senha, Genero, CPF)
+VALUE(1,'Victor Hugo Lino de Souza Estevão','victormorekids@gmail.com','Anaelisa-2019','masculino','70381145140');
+
+INSERT INTO tb_ADM (ID_ADM, Nome, Email, Senha, Genero, CPF)
+VALUE(2, 'Suporte More Kids','Suporte Morekids','usemorekids','Undefined' , '99999999999');
+
+-- dados de cliente
+INSERT INTO tb_CTS (ID_CTS, Nome, Fone, Genero, CPF)
+VALUE(1,'Victor Hugo Lino de Souza Estevão','61999156232','masculino','70381145140');
+
+-- dados de produto
+INSERT INTO tb_pdt (TP_PDT, NM_PDT,TAMANHO,Genero,Valor)
+VALUES('CAMISETA GOLA O', 'CAAMISTA GOLA O LISA', 16, 'masculino', 30.00);
+
+-- dados da venda
+INSERT INTO NMR_VND (NM_PDT, TP_PDT, TAMANHO, VDD, ID_CTS, ID_PDT)
+VALUES ('CAMISETA GOLA O LISA', 'CAMISETA GOLA O', 16, 'Suporte Morekids', 1, 1);
+
+-- trazendo informações de duas tabelas
+SELECT 
+O.ORD_VDN,NM_PDT,TP_PDT,TAMANHO,VLR,
+C.Nome,Fone
+FROM nmr_vnd as O
+INNER JOIN tb_cts as C
+ON (O.ID_CTS = C.ID_CTS);
