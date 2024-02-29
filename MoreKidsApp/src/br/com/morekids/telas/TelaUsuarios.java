@@ -16,7 +16,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     // Pesquisando Usuários;
     private void read() {
-        String sql = "select * from tb_adm where ID_ADM=?";
+        String sql = "select * from tb_usuario where ID_ADM=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txt_Id_Usuario.getText());
@@ -45,7 +45,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     // Adicionando Usuários;
     private void adicionar() {
-        String sql = "insert into tb_adm (ID_ADM, Nome, Email, Senha, Genero, perfil, Login ) values (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into tb_usuario (ID_ADM, Nome, Email, Senha, Genero, Perfil, Login ) values (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -82,7 +82,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     // Criando o Metodo para alterar dados do usuario
     private void alterar() {
-        String sql = "update tb_adm set Nome=?, Email=?, Senha=?, Genero=?, perfil=?, Login=? where ID_ADM=?";
+        String sql = "update tb_usuario set Nome=?, Email=?, Senha=?, Genero=?, perfil=?, Login=? where ID_ADM=?";
         //
         try {
             pst = conexao.prepareStatement(sql);
@@ -121,7 +121,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
 
         if (confirma == JOptionPane.YES_OPTION) {
-            String sql = "delete from tb_adm where ID_ADM=?";
+            String sql = "delete from tb_usuario where ID_ADM=?";
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, txt_Id_Usuario.getText());
@@ -217,7 +217,12 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             }
         });
 
-        comboBox_TipoDePerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
+        comboBox_TipoDePerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Vendedor" }));
+        comboBox_TipoDePerfil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_TipoDePerfilActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jLabel11.setText("Todos os direitos reservados ©  , 2024.");
@@ -305,8 +310,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboBox_TipoDePerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(comboBox_TipoDePerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
                                 .addComponent(txt_Id_Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
                             .addComponent(lbl_Login_Usuário)
                             .addComponent(lbl_Genero_Usuário)
@@ -393,6 +398,10 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         // Chamando o método Remover;
         deletar();
     }//GEN-LAST:event_btn_DeleteActionPerformed
+
+    private void comboBox_TipoDePerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_TipoDePerfilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBox_TipoDePerfilActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

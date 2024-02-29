@@ -40,7 +40,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         opcoes_Bar = new javax.swing.JMenu();
         sair_Opcoes_Menu_Bar = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("More Kid's - Controle de Vendas");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -77,6 +76,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menu_Bar.setText("Cadastro");
         menu_Bar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         menu_Bar.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        menu_Bar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_BarActionPerformed(evt);
+            }
+        });
 
         cliente_Cadastro_Menu_Bar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         cliente_Cadastro_Menu_Bar.setText("Cliente");
@@ -223,7 +227,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void venda_Cadastro_Menu_BarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_venda_Cadastro_Menu_BarActionPerformed
         // Chamando a Tela de Venda;
-        TelaVenda venda = new TelaVenda();
+        TelaVendas venda = new TelaVendas();
         venda.setVisible(true);
         desktop.add(venda);
     }//GEN-LAST:event_venda_Cadastro_Menu_BarActionPerformed
@@ -269,6 +273,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         produto.setVisible(true);
         desktop.add(produto);
     }//GEN-LAST:event_produto_Cadastro_Menu_BarActionPerformed
+
+    private void menu_BarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_BarActionPerformed
+        // TODO add your handling code here:
+        TelaVendas vendas = new TelaVendas();
+        vendas.setVisible(true);
+        desktop.add(vendas);
+    }//GEN-LAST:event_menu_BarActionPerformed
 
     /**
      * @param args the command line arguments

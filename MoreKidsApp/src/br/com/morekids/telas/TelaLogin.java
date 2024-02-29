@@ -5,11 +5,6 @@ import br.com.morekids.dal.ModuloConexao;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Victor
- */
-
 public class TelaLogin extends javax.swing.JFrame {
 
     Connection conexao = null;
@@ -17,7 +12,7 @@ public class TelaLogin extends javax.swing.JFrame {
     ResultSet rs = null;
 
     public void logar() {
-        String sql = "select * from tb_adm where Login=? and Senha=?";
+        String sql = "select * from tb_usuario where Login=? and Senha=?";
         try {
             // As linhs abaaixo preparam a aconsulta ao banco em função ao que foi digitado nas caixas de texto;
             // O '?' é substituído pelo conteúdo das variáveis
@@ -29,17 +24,17 @@ public class TelaLogin extends javax.swing.JFrame {
             // Se existir usuáio e senha correspondente
             if (rs.next()) {
                 // A linha abaixo obtém o conteúdo do campo Perfil da tabela tb_adm;
-                String perfil = rs.getString(6);
+                String Perfil = rs.getString(7);
                 //System.out.println(perfil);
                 //A estrutura abaixo faz o tratamento do perfil do usuário;
-                if(perfil.equals("admin")){
+                if(Perfil.equals("Administrador")){
                 TelaPrincipal principal = new TelaPrincipal();
                 principal.setVisible(true);
                 TelaPrincipal.relatorio_Bar.setEnabled(true);
                 TelaPrincipal.usuario_Cadastro_Menu_Bar.setEnabled(true);
                 TelaPrincipal.produto_Cadastro_Menu_Bar.setEnabled(true);
                 TelaPrincipal.lbl_usuario.setText(rs.getString(2));
-                TelaPrincipal.lbl_usuario.setForeground(Color.red);
+                TelaPrincipal.lbl_usuario.setForeground(Color.red);             
                 this.dispose();
                 conexao.close();
                 }
