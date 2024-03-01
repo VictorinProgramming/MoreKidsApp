@@ -24,7 +24,7 @@ public class TelaLogin extends javax.swing.JFrame {
             // Se existir usuáio e senha correspondente
             if (rs.next()) {
                 // A linha abaixo obtém o conteúdo do campo Perfil da tabela tb_adm;
-                String Perfil = rs.getString(7);
+                String Perfil = rs.getString(6);
                 //System.out.println(perfil);
                 //A estrutura abaixo faz o tratamento do perfil do usuário;
                 if(Perfil.equals("Administrador")){

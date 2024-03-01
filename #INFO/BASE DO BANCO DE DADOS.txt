@@ -1,87 +1,85 @@
-// CRIANDO BANCO DE DADOS MORE KIDS
-
-/*Comando para descrever a Tabela*/
-DESCRIBE tb_ADM 
-
-/*Comando para exibir dados da tabela*/
-SELECT * FROM administrador
-
-
-/* Aos criar o Banco de Dados */
-
 CREATE DATABASE usermorekids;
 
 USE usermorekids;
 
---> Criando tabelas
---USERS:
-CREATE TABLE IF NOT EXISTS tb_ADM (
-	ID_ADM INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    	Nome VARCHAR (50) NOT NULL,
-    	Email VARCHAR (50) NOT NULL UNIQUE,
-    	Senha VARCHAR (15) NOT NULL,
-    	Genero VARCHAR(9) NOT NULL,
-    	CPF VARCHAR(11) NOT NULL
+
+CREATE TABLE IF NOT EXISTS tb_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+	nome VARCHAR (50) NOT NULL,
+	email VARCHAR (50) NOT NULL UNIQUE,
+    login VARCHAR(25) NOT NULL UNIQUE,
+	senha VARCHAR (15) NOT NULL,
+    perfil VARCHAR (25) NOT NULL
 );
 
---CLIENT:
-CREATE TABLE IF NOT EXISTS tb_CTS(
+CREATE TABLE IF NOT EXISTS tb_clientes(
 	ID_CTS INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-   	Nome VARCHAR (50) NOT NULL UNIQUE,
-   	Fone VARCHAR(12) NOT NULL,
-  	Genero VARCHAR(9) NOT NULL,
-    	CPF VARCHAR(11) NOT NULL UNIQUE
+   	Nome_cli VARCHAR (50) NOT NULL UNIQUE,
+   	Fone_cli VARCHAR(12) NOT NULL,
+  	Genero_cli VARCHAR(9) NOT NULL
 );
 
---PRODUCT
-CREATE TABLE IF NOT EXISTS tb_PDT(
-	ID_PDT INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    	TP_PDT VARCHAR (50) NOT NULL,
-    	NM_PDT VARCHAR (50) NOT NULL,
-    	TAMANHO INT NOT NULL,
-    	Genero VARCHAR(9) NOT NULL,
-    	Valor DECIMAL(10,2) NOT NULL
+CREATE TABLE IF NOT EXISTS tb_tipo_produto (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    descricao VARCHAR(255)
 );
 
---NMR_VND
-CREATE TABLE NMR_VND (
-	ORD_VDN INT PRIMARY KEY AUTO_INCREMENT,
-    	DT_VDN TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    	M_PDT VARCHAR (150) NOT NULL,
-    	TP_PDT VARCHAR (50) NOT NULL,
-    	TAMANHO INT NOT NULL,
-    	VDD VARCHAR (50) NOT NULL,
-    	VLR DECIMAL (10,2) DEFAULT 0.00 NOT NULL,
-    	ID_CTS INT NOT NULL,
-    	ID_PDT INT NOT NULL,
-    	FOREIGN KEY (ID_CTS) REFERENCES tb_CTS(ID_CTS),
-	CONSTRAINT fk_NM_PDT FOREIGN KEY (ID_PDT) REFERENCES tb_PDT(ID_PDT)
+CREATE TABLE IF NOT EXISTS tb_produto (
+	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    descricao VARCHAR(200) NOT NULL,
+    preco DECIMAL (10, 2) NOT NULL,
+    quantidade INT NOT NULL,
+    tipo_produto_id INT NOT NULL,
+    usuario_id BIGINT NOT NULL,
+    data_hora_criacao DATETIME DEFAULT '0001-01-01 00:00:00',
+    CONSTRAINT fk_produto_tipo_produto FOREIGN KEY(tipo_produto_id) REFERENCES tb_tipo_produto (id),
+    CONSTRAINT fk_produto_usuario FOREIGN KEY (ID_ADM) REFERENCES tb_usuario (id)
 );
 
---> Fazendo INSERT de tb_ADM
---USERS:
-INSERT INTO tb_ADM (ID_ADM, Nome, Email, Senha, Genero, CPF)
-VALUE(1,'Victor Hugo Lino de Souza Estevão','victormorekids@gmail.com','Anaelisa-2019','masculino','70381145140');
+CREATE TABLE IF NOT EXISTS tb_venda (
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    total_venda DECIMAL (10,2) NOT NULL,
+    valor_pago DECIMAL (10,2) NOT NULL,
+    troco DECIMAL (10,2) NOT NULL,
+    desconto DECIMAL (10,2) NOT NULL,
+    cliente_id BIGINT,
+    usuario_id BIGINT NOT NULL,
+    data_hora_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ultima_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_venda_cliente FOREIGN KEY (cliente_id) REFERENCES tb_clientes (id),
+    CONSTRAINT fk_venda_usuario FOREIGN KEY (usuario_id) REFERENCES tb_usuario (id)
+);
 
-INSERT INTO tb_ADM (ID_ADM, Nome, Email, Senha, Genero, CPF)
-VALUE(2, 'Suporte More Kids','Suporte Morekids','usemorekids','Undefined' , '99999999999');
+CREATE TABLE IF NOT EXISTS tb_venda_item (
+	venda_id BIGINT NOT NULL,
+    produto_id BIGINT NOT NULL,
+    quantidade INT NOT NULL,
+    total DECIMAL (10,2) NOT NULL,
+    desconto DECIMAL (10,2) NOT NULL,
+    CONSTRAINT fk_venda_item_venda FOREIGN KEY (venda_id) REFERENCES tb_venda (id),
+    CONSTRAINT fk_venda_item_produto FOREIGN KEY (produto_id) REFERENCES tb_produto(id)
+);
 
+INSERT INTO tb_usuario (id, nome, email, login, senha, perfil)
+VALUE(1,'Victor Hugo Lino de Souza Estevão','victormorekids@gmail.com', 'Victor', 'Anaelisa-2019', 'Vendedor');
 
---CLIENTS:
-INSERT INTO tb_CTS (ID_CTS, Nome, Fone, Genero, CPF)
-VALUE(1,'Victor Hugo Lino de Souza Estevão','61999156232','masculino','70381145140');
+INSERT INTO tb_usuario (id, nome, email, login, senha, perfil)
+VALUE(2, 'Suporte More Kids','Suporte Morekids', 'Morekids', 'usemorekids','Administrador');
 
---PRODUTO:
+INSERT INTO tb_CTS (ID_CTS, Nome_cli, Fone_cli, Genero_cli)
+VALUE(1,'Victor','61999156232','masculino');
+
+INSERT INTO tb_CTS (ID_CTS, Nome_cli, Fone_cli, Genero_cli)
+VALUE(2,'Maria Aparecida','61998382641','feminino');
+
 INSERT INTO tb_pdt (TP_PDT, NM_PDT,TAMANHO,Genero,Valor)
 VALUES('CAMISETA GOLA O', 'CAAMISTA GOLA O LISA', 16, 'masculino', 30.00);
 
---NUMERO DA VENDA
-INSERT INTO NMR_VND (NM_PDT, TP_PDT, TAMANHO, VDD, ID_CTS, ID_PDT)
+INSERT INTO NMR_VND (NM_PDT, TP_PDT, TAMANHO, Vendedor, ID_CTS, ID_PDT)
 VALUES ('CAMISETA GOLA O LISA', 'CAMISETA GOLA O', 16, 'Suporte Morekids', 1, 1);
 
-
---> O Código abaixo traz informações de duas tabelas;
---
 SELECT 
 O.ORD_VDN,NM_PDT,TP_PDT,TAMANHO,VLR,
 C.Nome,Fone
@@ -89,44 +87,7 @@ FROM nmr_vnd as O
 INNER JOIN tb_cts as C
 ON (O.ID_CTS = C.ID_CTS);
 
-
-
-
-
-
-
---Anotações:
-ADM - Administrador
-CTS - Clientes
-PDt - Produto
-NMR_VND - Numero da Venda
-ORD_VDN - Ordem da venda
-DT_VDN - Data da Venda
-NM_PDT - Nome do Produto
-TP_PDT - Tipo do Produto
-VDD - Vendedor
-VLR - Valor
-
-
-
--- Informações do Banco de Dados:
-Tipo de Banco:
-MySQL Oracle
-
-Caminho:
-//127.0.0.1:3306
-ou
-//localhost:3306
-
-Nome:
-morekidsapp
-
-Autenticação:
-user= "root"
-password = "@novaSenha2"
-
-
---Alterações:
+USE usermorekids;
 
 UPDATE usermorekids.tb_pdt
 SET NM_PDT = 'CAMISETA GOLA O LISA'
@@ -136,13 +97,44 @@ UPDATE usermorekids.nmr_vnd
 SET VLR = 30.00
 WHERE ORD_VND = 1;
 
+
+
+describe tb_cts;
+describe tb_vendas;
+describe tb_itensvenda;
 describe tb_adm;
 
-alter table tb_adm add column perfil varchar(20) not null;
+select* from tb_usuario;
+select* from tb_cts;
+select* from tb_vendas;
+select* from tb_ItensVenda;
+select*from tb_estoque;
+select ID_CTS as Id, Nome_cli as Nome, Fone_cli as Telefone, Genero_cli as Genero, Email_cli as EMail from tb_cts;
 
-select* from tb_adm;
-alter table tb_adm add column Login varchar(20) not null;
+
+alter table tb_usuario add Perfil varchar(20) not null after Genero;
+
+alter table tb_estoque add column Tamanho varchar(20) not null;
+
+alter table tb_vendas drop column Vendedor;
 
 UPDATE usermorekids.tb_adm
 SET Login = 'MoreKids'
 WHERE ID_ADM = 2;
+
+UPDATE usermorekids.tb_adm
+SET Perfil = 'admin'
+WHERE ID_ADM = 1;
+
+UPDATE usermorekids.tb_adm
+SET Perfil = 'user'
+WHERE ID_ADM = 1;
+
+
+describe tb_vendas;
+
+drop table tb_usuario;
+drop table tb_vendas;
+drop table tb_cts;
+drop table tb_estoque;
+drop table tb_itensvenda;

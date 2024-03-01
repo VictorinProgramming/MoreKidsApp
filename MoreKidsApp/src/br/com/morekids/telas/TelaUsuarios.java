@@ -16,7 +16,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     // Pesquisando Usuários;
     private void read() {
-        String sql = "select * from tb_usuario where ID_ADM=?";
+        String sql = "select * from tb_usuario where id=?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txt_Id_Usuario.getText());
@@ -25,8 +25,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 txt_Nome_Usuario.setText(rs.getString(2));
                 txt_Email_Usuario.setText(rs.getString(3));
                 txt_Senha_Usuario.setText(rs.getString(4));
-                txt_Genero_Usuario.setText(rs.getString(5));
-                txt_Login_Usuario.setText(rs.getString(7));
+                txt_Login_Usuario.setText(rs.getString(5));
                 comboBox_TipoDePerfil.setSelectedItem(rs.getString(6));
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário não Cadastrado!");
@@ -34,7 +33,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                 txt_Nome_Usuario.setText(null);
                 txt_Email_Usuario.setText(null);
                 txt_Senha_Usuario.setText(null);
-                txt_Genero_Usuario.setText(null);
                 txt_Login_Usuario.setText(null);
                 comboBox_TipoDePerfil.setSelectedItem(null);
             }
@@ -45,7 +43,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     // Adicionando Usuários;
     private void adicionar() {
-        String sql = "insert into tb_usuario (ID_ADM, Nome, Email, Senha, Genero, Perfil, Login ) values (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into tb_usuario (id, nome, email, senha, perfil, login ) values (?, ?, ?, ?, ?, ?)";
 
         try {
             pst = conexao.prepareStatement(sql);
@@ -53,12 +51,11 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
             pst.setString(2, txt_Nome_Usuario.getText());
             pst.setString(3, txt_Email_Usuario.getText());
             pst.setString(4, txt_Senha_Usuario.getText());
-            pst.setString(5, txt_Genero_Usuario.getText());
-            pst.setString(6, comboBox_TipoDePerfil.getSelectedItem().toString());
-            pst.setString(7, txt_Login_Usuario.getText());
+            pst.setString(5, comboBox_TipoDePerfil.getSelectedItem().toString());
+            pst.setString(6, txt_Login_Usuario.getText());
 
             //Validação dos Campos Obrigaatórios;
-            if ((txt_Id_Usuario.getText().isEmpty()) || (txt_Nome_Usuario.getText().isEmpty()) || (txt_Email_Usuario.getText().isEmpty()) || (txt_Senha_Usuario.getText().isEmpty()) || (txt_Genero_Usuario.getText().isEmpty()) || (txt_Login_Usuario.getText().isEmpty())) {
+            if ((txt_Id_Usuario.getText().isEmpty()) || (txt_Nome_Usuario.getText().isEmpty()) || (txt_Email_Usuario.getText().isEmpty()) || (txt_Senha_Usuario.getText().isEmpty()) || (txt_Login_Usuario.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
             } else {
                 //A linha abaixo atualiza a tabela usuario com os dados do formulário;
@@ -70,7 +67,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                     txt_Nome_Usuario.setText(null);
                     txt_Email_Usuario.setText(null);
                     txt_Senha_Usuario.setText(null);
-                    txt_Genero_Usuario.setText(null);
                     txt_Login_Usuario.setText(null);
                     comboBox_TipoDePerfil.setSelectedItem(null);
                 }
@@ -82,18 +78,17 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     // Criando o Metodo para alterar dados do usuario
     private void alterar() {
-        String sql = "update tb_usuario set Nome=?, Email=?, Senha=?, Genero=?, perfil=?, Login=? where ID_ADM=?";
+        String sql = "update tb_usuario set nome=?, email=?, senha=?, perfil=?, login=? where id=?";
         //
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txt_Nome_Usuario.getText());
             pst.setString(2, txt_Email_Usuario.getText());
             pst.setString(3, txt_Senha_Usuario.getText());
-            pst.setString(4, txt_Genero_Usuario.getText());
-            pst.setString(5, comboBox_TipoDePerfil.getSelectedItem().toString());
-            pst.setString(6, txt_Login_Usuario.getText());
-            pst.setString(7, txt_Id_Usuario.getText());
-            if ((txt_Id_Usuario.getText().isEmpty()) || (txt_Nome_Usuario.getText().isEmpty()) || (txt_Email_Usuario.getText().isEmpty()) || (txt_Senha_Usuario.getText().isEmpty()) || (txt_Genero_Usuario.getText().isEmpty()) || (txt_Login_Usuario.getText().isEmpty())) {
+            pst.setString(4, comboBox_TipoDePerfil.getSelectedItem().toString());
+            pst.setString(5, txt_Login_Usuario.getText());
+            pst.setString(6, txt_Id_Usuario.getText());
+            if ((txt_Id_Usuario.getText().isEmpty()) || (txt_Nome_Usuario.getText().isEmpty()) || (txt_Email_Usuario.getText().isEmpty()) || (txt_Senha_Usuario.getText().isEmpty()) || (txt_Login_Usuario.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
             } else {
                 //A linha abaixo atualiza os dados do usuario com os dados da tabela;
@@ -105,7 +100,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                     txt_Nome_Usuario.setText(null);
                     txt_Email_Usuario.setText(null);
                     txt_Senha_Usuario.setText(null);
-                    txt_Genero_Usuario.setText(null);
                     txt_Login_Usuario.setText(null);
                     comboBox_TipoDePerfil.setSelectedItem(null);
                 }
@@ -121,7 +115,7 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
 
         if (confirma == JOptionPane.YES_OPTION) {
-            String sql = "delete from tb_usuario where ID_ADM=?";
+            String sql = "delete from tb_usuario where id=?";
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, txt_Id_Usuario.getText());
@@ -132,7 +126,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                     txt_Nome_Usuario.setText(null);
                     txt_Email_Usuario.setText(null);
                     txt_Senha_Usuario.setText(null);
-                    txt_Genero_Usuario.setText(null);
                     txt_Login_Usuario.setText(null);
                     comboBox_TipoDePerfil.setSelectedItem(null);
                 }
@@ -162,13 +155,11 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
         lbl_Nome_Usuário = new javax.swing.JLabel();
         lbl_Email_Usuário = new javax.swing.JLabel();
         lbl_Senha_Usuário = new javax.swing.JLabel();
-        lbl_Genero_Usuário = new javax.swing.JLabel();
         lbl_Login_Usuário = new javax.swing.JLabel();
         lbl_Perfil_Usuário = new javax.swing.JLabel();
         txt_Nome_Usuario = new javax.swing.JTextField();
         txt_Email_Usuario = new javax.swing.JTextField();
         txt_Senha_Usuario = new javax.swing.JTextField();
-        txt_Genero_Usuario = new javax.swing.JTextField();
         txt_Login_Usuario = new javax.swing.JTextField();
         comboBox_TipoDePerfil = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -196,8 +187,6 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
         lbl_Senha_Usuário.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lbl_Senha_Usuário.setText("Senha *");
-
-        lbl_Genero_Usuário.setText("Genero *");
 
         lbl_Login_Usuário.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lbl_Login_Usuário.setText("Login *");
@@ -301,60 +290,62 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
                         .addGap(130, 130, 130))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_Nome_Usuário)
-                            .addComponent(lbl_Email_Usuário)
-                            .addComponent(lbl_Senha_Usuário)
-                            .addComponent(txt_Nome_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_Email_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_Senha_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_Senha_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(comboBox_TipoDePerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(11, 11, 11)
-                                .addComponent(txt_Id_Usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-                            .addComponent(lbl_Login_Usuário)
-                            .addComponent(lbl_Genero_Usuário)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbl_Perfil_Usuário)
-                                .addGap(50, 50, 50)
-                                .addComponent(lbl_Id_Usuario))
-                            .addComponent(txt_Genero_Usuario)
-                            .addComponent(txt_Login_Usuario, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_Nome_Usuário)
+                                    .addComponent(lbl_Email_Usuário)
+                                    .addComponent(lbl_Senha_Usuário)
+                                    .addComponent(txt_Nome_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_Email_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(comboBox_TipoDePerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(11, 11, 11)
+                                        .addComponent(txt_Id_Usuario))
+                                    .addComponent(lbl_Login_Usuário)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lbl_Perfil_Usuário)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(lbl_Id_Usuario))
+                                    .addComponent(txt_Login_Usuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(lbl_CadastrodeUsuario)
-                .addGap(90, 90, 90)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_Nome_Usuário)
-                    .addComponent(lbl_Genero_Usuário))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_Nome_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_Genero_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_Email_Usuário)
-                    .addComponent(lbl_Login_Usuário))
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_Email_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_Login_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_CadastrodeUsuario)
+                        .addGap(92, 92, 92)
+                        .addComponent(lbl_Nome_Usuário)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_Nome_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbl_Login_Usuário)
+                        .addGap(2, 2, 2)
+                        .addComponent(txt_Login_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_Senha_Usuário, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbl_Perfil_Usuário)
-                        .addComponent(lbl_Id_Usuario)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(lbl_Email_Usuário)
+                        .addGap(2, 2, 2)
+                        .addComponent(txt_Email_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_Perfil_Usuário)
+                            .addComponent(lbl_Id_Usuario))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboBox_TipoDePerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_Id_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_Senha_Usuário)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_Senha_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBox_TipoDePerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_Id_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txt_Senha_Usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(jLabel1)
                 .addGap(35, 35, 35)
@@ -414,14 +405,12 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel lbl_CadastrodeUsuario;
     private javax.swing.JLabel lbl_Email_Usuário;
-    private javax.swing.JLabel lbl_Genero_Usuário;
     private javax.swing.JLabel lbl_Id_Usuario;
     private javax.swing.JLabel lbl_Login_Usuário;
     private javax.swing.JLabel lbl_Nome_Usuário;
     private javax.swing.JLabel lbl_Perfil_Usuário;
     private javax.swing.JLabel lbl_Senha_Usuário;
     private javax.swing.JTextField txt_Email_Usuario;
-    private javax.swing.JTextField txt_Genero_Usuario;
     private javax.swing.JTextField txt_Id_Usuario;
     private javax.swing.JTextField txt_Login_Usuario;
     private javax.swing.JTextField txt_Nome_Usuario;

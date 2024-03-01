@@ -17,15 +17,13 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
     // Adicionando Clientes;
     private void adicionar() {
-        String sql = "insert into tb_cts (Nome_cli, Fone_cli, Genero_cli, Email_cli ) values (?, ?, ?, ?)";
+        String sql = "insert into tb_clientes (Nome_cli, Fone_cli, Genero_cli) values (?, ?, ?)";
 
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txt_Nome_Cliente.getText());
             pst.setString(2, txt_Fone_Cliente.getText());
             pst.setString(3, txt_Genero_Cliente.getText());
-            pst.setString(4, txt_Email_Cliente.getText());
-
             //Validação dos Campos Obrigaatórios;
             if ((txt_Nome_Cliente.getText().isEmpty()) || (txt_Fone_Cliente.getText().isEmpty()) || (txt_Genero_Cliente.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
@@ -45,18 +43,15 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
     // Pesquisando Com Filtro
     private void pesquisar_cliente() {
-        String sql = "select ID_CTS as Id, Nome_cli as Nome, Fone_cli as Telefone, Genero_cli as Genero, Email_cli as EMail from tb_cts where Nome_cli like ?";
+        String sql = "select ID_CTS as Id, Nome_cli as Nome, Fone_cli as Telefone, Genero_cli as Genero from tb_clientes where Nome_cli like ?";
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txt_Cliente_Pesquisar.getText() + "%");
-
             rs = pst.executeQuery();
-
             tbl_Clientes.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
-
     }
 
     public void setar_campos() {
@@ -65,19 +60,17 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         txt_Nome_Cliente.setText(tbl_Clientes.getModel().getValueAt(setar, 1).toString());
         txt_Fone_Cliente.setText(tbl_Clientes.getModel().getValueAt(setar, 2).toString());
         txt_Genero_Cliente.setText(tbl_Clientes.getModel().getValueAt(setar, 3).toString());
-        txt_Email_Cliente.setText(tbl_Clientes.getModel().getValueAt(setar, 4).toString());
     }
 
     //Alterar Clientes
     private void alterar() {
-        String sql = "update tb_cts set Nome_cli=?, Fone_cli=?, Genero_cli=?, Email_cli=? where Nome_cli=?";
+        String sql = "update tb_clientes set Nome_cli=?, Fone_cli=?, Genero_cli=? where Nome_cli=?";
         //
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1, txt_Nome_Cliente.getText());
             pst.setString(2, txt_Fone_Cliente.getText());
             pst.setString(3, txt_Genero_Cliente.getText());
-            pst.setString(4, txt_Email_Cliente.getText());
             pst.setString(5, txt_Nome_Cliente.getText());
             if ((txt_Nome_Cliente.getText().isEmpty()) || (txt_Fone_Cliente.getText().isEmpty()) || (txt_Genero_Cliente.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
@@ -101,7 +94,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este Cliente?", "Atenção", JOptionPane.YES_NO_OPTION);
 
         if (confirma == JOptionPane.YES_OPTION) {
-            String sql = "delete from tb_cts where Nome_cli=?";
+            String sql = "delete from tb_clientes where Nome_cli=?";
             try {
                 pst = conexao.prepareStatement(sql);
                 pst.setString(1, txt_Nome_Cliente.getText());
@@ -110,7 +103,6 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Usuário deletado com Sucesso!");
                     limpar();
                 }
-
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -129,8 +121,6 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         txt_Nome_Cliente.setText(null);
         txt_Fone_Cliente.setText(null);
         txt_Genero_Cliente.setText(null);
-        txt_Email_Cliente.setText(null);
-
     }
 
     public TelaClientes() {
@@ -146,11 +136,9 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         lbl_Nome_Cliente = new javax.swing.JLabel();
         lbl_Fone_Cliente = new javax.swing.JLabel();
         lbl_Genero_Cliente = new javax.swing.JLabel();
-        lbl_Email_Cliente = new javax.swing.JLabel();
         txt_Nome_Cliente = new javax.swing.JTextField();
         txt_Fone_Cliente = new javax.swing.JTextField();
         txt_Genero_Cliente = new javax.swing.JTextField();
-        txt_Email_Cliente = new javax.swing.JTextField();
         btn_Cadastro_Cliente = new javax.swing.JButton();
         btb_Edita_Cliente = new javax.swing.JButton();
         btn_Delete_Cliente = new javax.swing.JButton();
@@ -189,18 +177,9 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         lbl_Genero_Cliente.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lbl_Genero_Cliente.setText("Genero *");
 
-        lbl_Email_Cliente.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lbl_Email_Cliente.setText("E-mail");
-
         txt_Nome_Cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_Nome_ClienteActionPerformed(evt);
-            }
-        });
-
-        txt_Email_Cliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_Email_ClienteActionPerformed(evt);
             }
         });
 
@@ -240,13 +219,13 @@ public class TelaClientes extends javax.swing.JInternalFrame {
 
         tbl_Clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "Telefone", "Genero", "Email"
+                "Id", "Nome", "Telefone", "Genero"
             }
         ));
         tbl_Clientes.setFocusable(false);
@@ -309,14 +288,12 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lbl_Genero_Cliente)
-                                    .addComponent(lbl_Email_Cliente)
                                     .addComponent(lbl_Fone_Cliente)
                                     .addComponent(lbl_Nome_Cliente))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txt_Genero_Cliente, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txt_Fone_Cliente, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_Email_Cliente)
                                     .addComponent(txt_Nome_Cliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addContainerGap(335, Short.MAX_VALUE))))
         );
@@ -358,21 +335,13 @@ public class TelaClientes extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_Genero_Cliente)
                             .addComponent(txt_Genero_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_Email_Cliente)
-                            .addComponent(txt_Email_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addContainerGap())))
         );
 
         setBounds(0, 0, 796, 686);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txt_Email_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Email_ClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_Email_ClienteActionPerformed
 
     private void btn_Delete_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Delete_ClienteActionPerformed
         // Deletando Cliente
@@ -420,14 +389,12 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbl_Cadastro_Cliente;
-    private javax.swing.JLabel lbl_Email_Cliente;
     private javax.swing.JLabel lbl_Fone_Cliente;
     private javax.swing.JLabel lbl_Genero_Cliente;
     private javax.swing.JLabel lbl_Id_Cliente;
     private javax.swing.JLabel lbl_Nome_Cliente;
     private javax.swing.JTable tbl_Clientes;
     private javax.swing.JTextField txt_Cliente_Pesquisar;
-    private javax.swing.JTextField txt_Email_Cliente;
     private javax.swing.JTextField txt_Fone_Cliente;
     private javax.swing.JTextField txt_Genero_Cliente;
     private javax.swing.JTextField txt_Id_Cliente;

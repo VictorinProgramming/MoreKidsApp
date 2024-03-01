@@ -1,9 +1,7 @@
 package br.com.morekids.telas;
 
 import br.com.morekids.dal.ModuloConexao;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 public class TelaVendas extends javax.swing.JFrame {
@@ -12,13 +10,10 @@ public class TelaVendas extends javax.swing.JFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    
-    
     public TelaVendas() {
         initComponents();
         conexao = ModuloConexao.conector();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -65,7 +60,8 @@ public class TelaVendas extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tbl_Info_Vendas = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setAutoRequestFocus(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -397,10 +393,10 @@ public class TelaVendas extends javax.swing.JFrame {
                         .addComponent(panel_Produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panel_Cts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(1280, 780));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

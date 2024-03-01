@@ -65,29 +65,31 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbl_Nome_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl_Email_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl_Senha_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_Nome_Usuario" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
-                          <Component id="txt_Email_Usuario" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
                           <Component id="txt_Senha_Usuario" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="comboBox_TipoDePerfil" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                              <Component id="txt_Id_Usuario" pref="127" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_Nome_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_Email_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbl_Senha_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txt_Nome_Usuario" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
+                                  <Component id="txt_Email_Usuario" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="comboBox_TipoDePerfil" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                      <Component id="txt_Id_Usuario" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="lbl_Login_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lbl_Perfil_Usuário" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Component id="lbl_Id_Usuario" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="txt_Login_Usuario" alignment="1" min="-2" pref="248" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="lbl_Login_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl_Genero_Usuário" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="lbl_Perfil_Usuário" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                              <Component id="lbl_Id_Usuario" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txt_Genero_Usuario" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txt_Login_Usuario" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -99,41 +101,44 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="lbl_CadastrodeUsuario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbl_Nome_Usuário" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbl_Genero_Usuário" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txt_Nome_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_Genero_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbl_Email_Usuário" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbl_Login_Usuário" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txt_Email_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_Login_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lbl_Senha_Usuário" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="lbl_Perfil_Usuário" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbl_Id_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="lbl_CadastrodeUsuario" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
+                      <Component id="lbl_Nome_Usuário" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txt_Nome_Usuario" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="lbl_Login_Usuário" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Component id="txt_Login_Usuario" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txt_Senha_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="comboBox_TipoDePerfil" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_Id_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="lbl_Email_Usuário" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Component id="txt_Email_Usuario" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lbl_Perfil_Usuário" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbl_Id_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="comboBox_TipoDePerfil" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_Id_Usuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="lbl_Senha_Usuário" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="txt_Senha_Usuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
@@ -183,11 +188,6 @@
         <Property name="text" type="java.lang.String" value="Senha *"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbl_Genero_Usu&#xe1;rio">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Genero *"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="lbl_Login_Usu&#xe1;rio">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -215,8 +215,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_Senha_UsuarioActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt_Genero_Usuario">
     </Component>
     <Component class="javax.swing.JTextField" name="txt_Login_Usuario">
     </Component>
