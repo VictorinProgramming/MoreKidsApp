@@ -145,6 +145,7 @@
     <Component class="javax.swing.JPasswordField" name="password_box_field">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="password_box_fieldActionPerformed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="password_box_fieldKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="Logo">

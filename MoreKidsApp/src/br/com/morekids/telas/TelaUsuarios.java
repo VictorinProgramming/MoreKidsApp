@@ -2,7 +2,7 @@ package br.com.morekids.telas;
 
 import java.sql.*;
 import br.com.morekids.dal.ModuloConexao;
-import javax.swing.JOptionPane;
+import br.com.morekids.telas.conexoes.Usuario;
 
 /**
  *
@@ -14,137 +14,12 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    // Pesquisando Usuários;
-    private void read() {
-        String sql = "select * from tb_usuario where id=?";
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txt_Id_Usuario.getText());
-            rs = pst.executeQuery();
-            if (rs.next()) {
-                txt_Nome_Usuario.setText(rs.getString(2));
-                txt_Email_Usuario.setText(rs.getString(3));
-                txt_Senha_Usuario.setText(rs.getString(4));
-                txt_Login_Usuario.setText(rs.getString(5));
-                comboBox_TipoDePerfil.setSelectedItem(rs.getString(6));
-            } else {
-                JOptionPane.showMessageDialog(null, "Usuário não Cadastrado!");
-                //A linha abaixo limpam os campos;
-                txt_Nome_Usuario.setText(null);
-                txt_Email_Usuario.setText(null);
-                txt_Senha_Usuario.setText(null);
-                txt_Login_Usuario.setText(null);
-                comboBox_TipoDePerfil.setSelectedItem(null);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-
-    // Adicionando Usuários;
-    private void adicionar() {
-        String sql = "insert into tb_usuario (id, nome, email, senha, perfil, login ) values (?, ?, ?, ?, ?, ?)";
-
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txt_Id_Usuario.getText());
-            pst.setString(2, txt_Nome_Usuario.getText());
-            pst.setString(3, txt_Email_Usuario.getText());
-            pst.setString(4, txt_Senha_Usuario.getText());
-            pst.setString(5, comboBox_TipoDePerfil.getSelectedItem().toString());
-            pst.setString(6, txt_Login_Usuario.getText());
-
-            //Validação dos Campos Obrigaatórios;
-            if ((txt_Id_Usuario.getText().isEmpty()) || (txt_Nome_Usuario.getText().isEmpty()) || (txt_Email_Usuario.getText().isEmpty()) || (txt_Senha_Usuario.getText().isEmpty()) || (txt_Login_Usuario.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
-            } else {
-                //A linha abaixo atualiza a tabela usuario com os dados do formulário;
-                int adicionado = pst.executeUpdate();
-
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Usuário adicionado com Sucesso!");
-                    txt_Id_Usuario.setText(null);
-                    txt_Nome_Usuario.setText(null);
-                    txt_Email_Usuario.setText(null);
-                    txt_Senha_Usuario.setText(null);
-                    txt_Login_Usuario.setText(null);
-                    comboBox_TipoDePerfil.setSelectedItem(null);
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
-
-    // Criando o Metodo para alterar dados do usuario
-    private void alterar() {
-        String sql = "update tb_usuario set nome=?, email=?, senha=?, perfil=?, login=? where id=?";
-        //
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txt_Nome_Usuario.getText());
-            pst.setString(2, txt_Email_Usuario.getText());
-            pst.setString(3, txt_Senha_Usuario.getText());
-            pst.setString(4, comboBox_TipoDePerfil.getSelectedItem().toString());
-            pst.setString(5, txt_Login_Usuario.getText());
-            pst.setString(6, txt_Id_Usuario.getText());
-            if ((txt_Id_Usuario.getText().isEmpty()) || (txt_Nome_Usuario.getText().isEmpty()) || (txt_Email_Usuario.getText().isEmpty()) || (txt_Senha_Usuario.getText().isEmpty()) || (txt_Login_Usuario.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
-            } else {
-                //A linha abaixo atualiza os dados do usuario com os dados da tabela;
-                int adicionado = pst.executeUpdate();
-
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Dados do usuário alterados com Sucesso!");
-                    txt_Id_Usuario.setText(null);
-                    txt_Nome_Usuario.setText(null);
-                    txt_Email_Usuario.setText(null);
-                    txt_Senha_Usuario.setText(null);
-                    txt_Login_Usuario.setText(null);
-                    comboBox_TipoDePerfil.setSelectedItem(null);
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-
-    }
-
-    // Criando o Método para a Exclusão de Usuário;
-    private void deletar() {
-        int confirma = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja remover este usuário?", "Atenção", JOptionPane.YES_NO_OPTION);
-
-        if (confirma == JOptionPane.YES_OPTION) {
-            String sql = "delete from tb_usuario where id=?";
-            try {
-                pst = conexao.prepareStatement(sql);
-                pst.setString(1, txt_Id_Usuario.getText());
-                int apagado = pst.executeUpdate();
-                if (apagado > 0) {
-                    JOptionPane.showMessageDialog(null, "Usuário deletado com Sucesso!");
-                    txt_Id_Usuario.setText(null);
-                    txt_Nome_Usuario.setText(null);
-                    txt_Email_Usuario.setText(null);
-                    txt_Senha_Usuario.setText(null);
-                    txt_Login_Usuario.setText(null);
-                    comboBox_TipoDePerfil.setSelectedItem(null);
-                }
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        }
-
-        try {
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+    private Usuario usuario;
 
     public TelaUsuarios() {
         initComponents();
         conexao = ModuloConexao.conector();
+        usuario = new Usuario(conexao);
     }
 
     @SuppressWarnings("unchecked")
@@ -372,22 +247,25 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
 
     private void btn_CreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CreateActionPerformed
         // Chamando o método Adicionar
-        adicionar();
+        usuario.adicionar(txt_Id_Usuario, txt_Nome_Usuario, txt_Email_Usuario,
+                txt_Senha_Usuario, comboBox_TipoDePerfil, txt_Login_Usuario);
     }//GEN-LAST:event_btn_CreateActionPerformed
 
     private void btn_ReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ReadActionPerformed
         // Chamando o método Consultar
-        read();
+        usuario.consultar(txt_Id_Usuario, txt_Nome_Usuario, txt_Email_Usuario,
+                txt_Senha_Usuario, comboBox_TipoDePerfil, txt_Login_Usuario);
     }//GEN-LAST:event_btn_ReadActionPerformed
 
     private void btn_UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UpdateActionPerformed
         // Chamando o método Alterar:
-        alterar();
+        usuario.alterar(txt_Id_Usuario, txt_Nome_Usuario, txt_Email_Usuario,
+                txt_Senha_Usuario, comboBox_TipoDePerfil, txt_Login_Usuario);
     }//GEN-LAST:event_btn_UpdateActionPerformed
 
     private void btn_DeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DeleteActionPerformed
         // Chamando o método Remover;
-        deletar();
+        usuario.deletar(txt_Id_Usuario);
     }//GEN-LAST:event_btn_DeleteActionPerformed
 
     private void comboBox_TipoDePerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_TipoDePerfilActionPerformed
@@ -416,4 +294,8 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_Nome_Usuario;
     private javax.swing.JTextField txt_Senha_Usuario;
     // End of variables declaration//GEN-END:variables
+
+    private void adicionar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

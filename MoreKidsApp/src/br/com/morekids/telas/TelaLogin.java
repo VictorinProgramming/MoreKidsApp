@@ -118,6 +118,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 password_box_fieldActionPerformed(evt);
             }
         });
+        password_box_field.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                password_box_fieldKeyPressed(evt);
+            }
+        });
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/morekids/icons/150px.png"))); // NOI18N
 
@@ -199,6 +204,10 @@ public class TelaLogin extends javax.swing.JFrame {
     private void password_box_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_password_box_fieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_password_box_fieldActionPerformed
+
+    private void password_box_fieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_password_box_fieldKeyPressed
+
+    }//GEN-LAST:event_password_box_fieldKeyPressed
 
     public static void main(String args[]) {
 

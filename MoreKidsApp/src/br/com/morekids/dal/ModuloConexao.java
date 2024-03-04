@@ -4,7 +4,11 @@ package br.com.morekids.dal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+
 public class ModuloConexao {
+
+    public ModuloConexao() {
+    }
 
     //Método responsável por estabelecer a conexão com o banco de dados;
     public static Connection conector() {
@@ -24,4 +28,5 @@ public class ModuloConexao {
             return null;
         }
     }
+
 }
