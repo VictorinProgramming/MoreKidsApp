@@ -4,6 +4,7 @@ import java.sql.*;
 import br.com.morekids.dal.ModuloConexao;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
+import br.com.morekids.telas.conexoes.Cliente;
 
 /**
  *
@@ -15,31 +16,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    // Adicionando Clientes;
-    private void adicionar() {
-        String sql = "insert into tb_clientes (Nome_cli, Fone_cli, Genero_cli) values (?, ?, ?)";
-
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txt_Nome_Cliente.getText());
-            pst.setString(2, txt_Fone_Cliente.getText());
-            pst.setString(3, txt_Genero_Cliente.getText());
-            //Validação dos Campos Obrigaatórios;
-            if ((txt_Nome_Cliente.getText().isEmpty()) || (txt_Fone_Cliente.getText().isEmpty()) || (txt_Genero_Cliente.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
-            } else {
-                //A linha abaixo atualiza a tabela usuario com os dados do formulário;
-                int adicionado = pst.executeUpdate();
-
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Cliente adicionado com Sucesso!");
-                    limpar();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+    private Cliente cliente;
 
     // Pesquisando Com Filtro
     private void pesquisar_cliente() {
@@ -60,33 +37,6 @@ public class TelaClientes extends javax.swing.JInternalFrame {
         txt_Nome_Cliente.setText(tbl_Clientes.getModel().getValueAt(setar, 1).toString());
         txt_Fone_Cliente.setText(tbl_Clientes.getModel().getValueAt(setar, 2).toString());
         txt_Genero_Cliente.setText(tbl_Clientes.getModel().getValueAt(setar, 3).toString());
-    }
-
-    //Alterar Clientes
-    private void alterar() {
-        String sql = "update tb_clientes set Nome_cli=?, Fone_cli=?, Genero_cli=? where Nome_cli=?";
-        //
-        try {
-            pst = conexao.prepareStatement(sql);
-            pst.setString(1, txt_Nome_Cliente.getText());
-            pst.setString(2, txt_Fone_Cliente.getText());
-            pst.setString(3, txt_Genero_Cliente.getText());
-            pst.setString(5, txt_Nome_Cliente.getText());
-            if ((txt_Nome_Cliente.getText().isEmpty()) || (txt_Fone_Cliente.getText().isEmpty()) || (txt_Genero_Cliente.getText().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "Preencha todos os Campos OBRIGATÓRIOS!");
-            } else {
-                //A linha abaixo atualiza os dados do usuario com os dados da tabela;
-                int adicionado = pst.executeUpdate();
-
-                if (adicionado > 0) {
-                    JOptionPane.showMessageDialog(null, "Dados do Cliente alterados com Sucesso!");
-                    limpar();
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-
     }
 
     //Deletando Cliente
@@ -126,6 +76,7 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     public TelaClientes() {
         initComponents();
         conexao = ModuloConexao.conector();
+        cliente = new Cliente(conexao);
     }
 
     @SuppressWarnings("unchecked")
@@ -349,13 +300,23 @@ public class TelaClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_Delete_ClienteActionPerformed
 
     private void btb_Edita_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btb_Edita_ClienteActionPerformed
-        // Editar Cliente:
-        alterar();
+        try {
+            if (cliente.alterar(txt_Nome_Cliente.getText(), txt_Fone_Cliente.getText(), txt_Genero_Cliente.getText())) {
+                JOptionPane.showMessageDialog(null, "Cliente editado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao editar o cliente. Verifique os campos.");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao editar o cliente: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btb_Edita_ClienteActionPerformed
 
     private void btn_Cadastro_ClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Cadastro_ClienteActionPerformed
-        //Cadastro Cliente
-        adicionar();
+        try {
+            // Certifique-se de que txt_Nome_Cliente, txt_Fone_Cliente e txt_Genero_Cliente são componentes válidos
+            cliente.adicionar(txt_Nome_Cliente.getText(), txt_Fone_Cliente.getText(), txt_Genero_Cliente.getText());
+        } catch (SQLException ex) {
+        }
     }//GEN-LAST:event_btn_Cadastro_ClienteActionPerformed
 
     private void tbl_ClientesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbl_ClientesKeyReleased

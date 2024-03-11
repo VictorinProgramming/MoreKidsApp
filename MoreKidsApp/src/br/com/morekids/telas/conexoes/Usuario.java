@@ -19,10 +19,10 @@ public class Usuario {
 
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+
     private Connection conexao;
-   
-    public Usuario (Connection conexao){
+
+    public Usuario(Connection conexao) {
         this.conexao = conexao;
     }
 

@@ -4,6 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Morekids/MoreKidsApp/src/br/com/morekids/telas/TelaUsuarios.java</file>
+            <file>file:/D:/Morekids/MoreKidsApp/src/br/com/morekids/telas/TelaClientes.java</file>
+            <file>file:/D:/Morekids/MoreKidsApp/src/br/com/morekids/telas/conexoes/Usuario.java</file>
+            <file>file:/D:/Morekids/MoreKidsApp/src/br/com/morekids/telas/conexoes/Cliente.java</file>
         </group>
     </open-files>
 </project-private>

@@ -295,7 +295,4 @@ public class TelaUsuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_Senha_Usuario;
     // End of variables declaration//GEN-END:variables
 
-    private void adicionar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
